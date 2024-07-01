@@ -87,8 +87,8 @@ const char * const failsafeProcedureNames[FAILSAFE_PROCEDURE_COUNT] = {
 void failsafeReset(void)
 {
 //1700 is 170 sec
-    // failsafeState.rxDataFailurePeriod = 600 * MILLIS_PER_TENTH_SECOND;
-    failsafeState.rxDataFailurePeriod = failsafeConfig()->failsafe_delay * MILLIS_PER_TENTH_SECOND;
+    failsafeState.rxDataFailurePeriod = 170 * MILLIS_PER_TENTH_SECOND;
+    // failsafeState.rxDataFailurePeriod = failsafeConfig()->failsafe_delay * MILLIS_PER_TENTH_SECOND;
 
     if (failsafeState.rxDataFailurePeriod < PERIOD_RXDATA_RECOVERY){
         // avoid transients and ensure reliable arming for minimum of PERIOD_RXDATA_RECOVERY (200ms)
