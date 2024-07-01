@@ -570,6 +570,18 @@ static uint16_t getRxfailValue(uint8_t channel)
     const rxFailsafeChannelConfig_t *channelFailsafeConfig = rxFailsafeChannelConfigs(channel);
     const bool failsafeAuxSwitch = IS_RC_MODE_ACTIVE(BOXFAILSAFE);
 
+    // bool isNeedGoUpDuringFS = rcData[AUX4] < 1400;
+    // if(isNeedGoUpDuringFS){
+    //     switch (channel) {
+    //     case THROTTLE:
+    //         return 1300;
+    //     case PITCH:
+    //         return 1400;
+    //     case AUX2:
+    //         return 1700;
+    //     }
+    // }
+
     switch (channelFailsafeConfig->mode) {
     case RX_FAILSAFE_MODE_AUTO:
         switch (channel) {

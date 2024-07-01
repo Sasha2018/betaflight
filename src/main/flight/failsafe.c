@@ -86,7 +86,10 @@ const char * const failsafeProcedureNames[FAILSAFE_PROCEDURE_COUNT] = {
  */
 void failsafeReset(void)
 {
+//1700 is 170 sec
+    // failsafeState.rxDataFailurePeriod = 600 * MILLIS_PER_TENTH_SECOND;
     failsafeState.rxDataFailurePeriod = failsafeConfig()->failsafe_delay * MILLIS_PER_TENTH_SECOND;
+
     if (failsafeState.rxDataFailurePeriod < PERIOD_RXDATA_RECOVERY){
         // avoid transients and ensure reliable arming for minimum of PERIOD_RXDATA_RECOVERY (200ms)
         failsafeState.rxDataFailurePeriod = PERIOD_RXDATA_RECOVERY;
@@ -260,7 +263,8 @@ FAST_CODE_NOINLINE void failsafeUpdateState(void)
                         failsafeState.receivingRxDataPeriodPreset = failsafeState.rxDataRecoveryPeriod;
                         //  allow re-arming 1 second after Rx recovery, customisable
                         reprocessState = true;
-                    } else if (!receivingRxData) {
+                    } else
+                         if (!receivingRxData) {
                         if (millis() > failsafeState.throttleLowPeriod
 #ifdef USE_GPS_RESCUE
                             && failsafeConfig()->failsafe_procedure != FAILSAFE_PROCEDURE_GPS_RESCUE
@@ -288,7 +292,7 @@ FAST_CODE_NOINLINE void failsafeUpdateState(void)
                         DISABLE_FLIGHT_MODE(FAILSAFE_MODE);
                     }
                     // Throttle low period expired (= low long enough for JustDisarm)
-                    failsafeState.throttleLowPeriod = 0;
+                  failsafeState.throttleLowPeriod = 0;
                 }
                 break;
 
